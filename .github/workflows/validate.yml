@@ -23,3 +23,31 @@ jobs:
       - uses: hacs/action@main
         with:
           category: integration
+
+  import-check:
+    name: Import check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install Home Assistant + integration requirements
+        run: pip install homeassistant aurorapy
+      - name: Import every platform module
+        run: |
+          python - <<'EOF'
+          import importlib
+
+          modules = [
+              "custom_components.aurora_tcp_bridge",
+              "custom_components.aurora_tcp_bridge.const",
+              "custom_components.aurora_tcp_bridge.coordinator",
+              "custom_components.aurora_tcp_bridge.config_flow",
+              "custom_components.aurora_tcp_bridge.sensor",
+              "custom_components.aurora_tcp_bridge.binary_sensor",
+          ]
+          for name in modules:
+              importlib.import_module(name)
+              print(f"OK  {name}")
+          EOF
