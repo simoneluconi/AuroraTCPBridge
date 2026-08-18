@@ -35,10 +35,6 @@ Go to **Settings → Devices & Services → Add Integration**, search for **Auro
 | Address | Aurora inverter RS485 address | `2` |
 | Poll interval | Seconds between polls | `10` |
 
-## Screenshots
-
-_Placeholder — add screenshots of the config flow and the device page here._
-
 ## License
 
 [MIT](LICENSE)
