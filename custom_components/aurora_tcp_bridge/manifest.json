@@ -1,0 +1,11 @@
+{
+  "domain": "aurora_tcp_bridge",
+  "name": "AuroraTCPBridge",
+  "codeowners": ["@simoneluconi"],
+  "config_flow": true,
+  "documentation": "https://github.com/simoneluconi/AuroraTCPBridge",
+  "issue_tracker": "https://github.com/simoneluconi/AuroraTCPBridge/issues",
+  "iot_class": "local_polling",
+  "requirements": ["aurorapy==0.2.7"],
+  "version": "0.1.0"
+}
