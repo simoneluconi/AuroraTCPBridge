@@ -1,0 +1,42 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connetti l'inverter Aurora",
+        "description": "Inserisci i dati di connessione del gateway TCP-seriale collegato al tuo inverter Aurora/ABB/Power-One.",
+        "data": {
+          "host": "Host",
+          "port": "Porta",
+          "address": "Indirizzo inverter",
+          "poll_interval": "Intervallo di polling (secondi)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Connessione all'inverter non riuscita. Controlla host, porta e indirizzo.",
+      "unknown": "Errore imprevisto."
+    },
+    "abort": {
+      "already_configured": "Questo inverter è già configurato."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "output_power": { "name": "Potenza in uscita" },
+      "input_voltage": { "name": "Tensione in ingresso" },
+      "input1_current": { "name": "Corrente ingresso 1" },
+      "input2_current": { "name": "Corrente ingresso 2" },
+      "daily_energy": { "name": "Energia giornaliera" },
+      "energy_week": { "name": "Energia settimanale" },
+      "energy_month": { "name": "Energia mensile" },
+      "year_energy": { "name": "Energia annuale" },
+      "energy_total": { "name": "Energia totale" },
+      "inverter_temperature": { "name": "Temperatura" },
+      "status": { "name": "Stato" },
+      "last_response": { "name": "Ultima risposta" }
+    },
+    "binary_sensor": {
+      "responding": { "name": "Risponde" }
+    }
+  }
+}
