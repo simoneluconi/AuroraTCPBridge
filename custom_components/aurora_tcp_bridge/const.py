@@ -32,6 +32,28 @@ FAILURE_THRESHOLD = 3
 # response.
 MAX_BACKOFF = 300  # 5 minutes
 
+# Cumulative counters must hold their last known value across a failed poll
+# instead of going unknown - they don't change while the inverter is asleep,
+# and losing them mid-stream is what breaks the Energy Dashboard's
+# total_increasing statistic for energy_total.
+HOLD_LAST_VALUE_KEYS = (
+    "daily_energy",
+    "energy_week",
+    "energy_month",
+    "year_energy",
+    "energy_total",
+    "inverter_temperature",
+)
+# Instantaneous readings default to 0 when the inverter isn't responding
+# (e.g. overnight with no PV production) rather than going unknown, which
+# otherwise breaks history graphs and templates that expect a number.
+ZERO_ON_NO_RESPONSE_KEYS = (
+    "output_power",
+    "input_voltage",
+    "input1_current",
+    "input2_current",
+)
+
 STATUS_RESPONDING = "responding"
 STATUS_NO_RESPONSE = "no_response"
 STATUS_UNREACHABLE = "unreachable"
