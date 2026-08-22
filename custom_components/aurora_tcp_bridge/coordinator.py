@@ -25,10 +25,12 @@ from .const import (
     ATTR_STATUS,
     DOMAIN,
     FAILURE_THRESHOLD,
+    HOLD_LAST_VALUE_KEYS,
     MAX_BACKOFF,
     STATUS_NO_RESPONSE,
     STATUS_RESPONDING,
     STATUS_UNREACHABLE,
+    ZERO_ON_NO_RESPONSE_KEYS,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -83,6 +85,7 @@ class AuroraTCPBridgeCoordinator(DataUpdateCoordinator[dict]):
 
     def _poll(self) -> dict:
         """Blocking poll of the inverter. Runs in the executor."""
+        previous = self.data or {}
         result: dict = {}
         responding = False
         status = STATUS_UNREACHABLE
@@ -147,6 +150,13 @@ class AuroraTCPBridgeCoordinator(DataUpdateCoordinator[dict]):
                 self._consecutive_failures = 0
                 self._last_attempt_time = time.time()
                 self._reconnect_backoff = min(self._reconnect_backoff * 2, MAX_BACKOFF)
+
+        for key in HOLD_LAST_VALUE_KEYS:
+            if key not in result and key in previous:
+                result[key] = previous[key]
+
+        for key in ZERO_ON_NO_RESPONSE_KEYS:
+            result.setdefault(key, 0)
 
         result[ATTR_RESPONDING] = responding
         result[ATTR_STATUS] = status
